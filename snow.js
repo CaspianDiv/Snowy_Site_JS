@@ -1,19 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <title>Document</title>
-        <style>
-            body { min-height: 100vh; margin: 0; background: url('img/winter.jpg') center/cover; }
-            #qar { height: 100vh; position: relative; overflow: hidden;}
-            #qar > * { position: absolute; }
-        </style>
-    </head>
-    <body>
-        <div id="qar"></div>
-
-        <script>
-            const qar = document.getElementById('qar')
+     const qar = document.getElementById('qar')
             let i = 0
             const snowArr = []
             const flakes = ['❄', '❅', '⁕', '❆', '*']
@@ -59,6 +44,3 @@
             function rnd(min, max) {
                 return Math.floor(Math.random() * (max - min + 1) ) + min;
             }
-        </script>
-    </body>
-</html>
