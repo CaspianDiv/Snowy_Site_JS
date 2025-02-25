@@ -1,47 +1,64 @@
-const snow = document.getElementById('snow');
-const dene = document.getElementById('dene');
-let i = 0;
-let snowArr = [];
-let flake = ['❄' , '❅' ,' ❆' ,' ❈' , '❋' , '❊' , '❉' ,'❉' , '❆'];
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Document</title>
+        <style>
+            body { min-height: 100vh; margin: 0; background: url('img/winter.jpg') center/cover; }
+            #qar { height: 100vh; position: relative; overflow: hidden;}
+            #qar > * { position: absolute; }
+        </style>
+    </head>
+    <body>
+        <div id="qar"></div>
 
-setInterval(newFlake, 1000);
-setInterval(move,40);
+        <script>
+            const qar = document.getElementById('qar')
+            let i = 0
+            const snowArr = []
+            const flakes = ['❄', '❅', '⁕', '❆', '*']
 
-function newFlake() {
-    let id = i++;
-    let x = rnd(0, snow.offsetWidth);
-    let size = rnd(10, 20) / 10;
-    let y = -16 * size;
-    let color = (50, 100) / 100;
-    let shape = rnd(0, flake.length -1);
-    let speed = rnd(1, 3)
+            setInterval(newFlake, 1000)
+            setInterval(move, 40)
 
-    snowArr.push([id , x , y ,shape,size,color,speed]); 
-    snow.innerHTML += `<div id="dene${id}">${flake[shape]}</div>`
-}
-
-function move() {
-    for(i = 0; i < snowArr.length; i++){
-        const dene = snowArr[i];
-
-        if(dene) {
-            dene[2] += dene[6]
-            const elem = document.getElementById(`dene${dene[0]}`);
-
-            elem.style.left = dene[1] + 'px';
-            elem.style.top = dene[2] + 'px';
-            elem.style.color = '#fff';
-            elem.style.opacity = dene[5];
-
-            if(dene[2] > snow.offsetHeight){
-                elem.remove();
-                delete snowArr[dene[0]]
+            function newFlake() {
+                    let id = i++,
+                        x = rnd(0, qar.offsetWidth),
+                        shape = rnd(0, flakes.length - 1),
+                        size = rnd(10, 20) / 10,
+                        color = rnd(50, 100) / 100,
+                        speed = rnd(1, 3),
+                        y = -16 * size
+                    
+                snowArr.push( {id, x, y, shape, size, color, speed} )
+                qar.innerHTML += `<div id="dene${id}">${flakes[shape]}</div>`
             }
-        }
-    }
-}
+            
+            function move() {
+                for (let i = 0; i < snowArr.length; i++) {
+                    const dene = snowArr[i]
+                    if (dene) {
+                        const elem = document.getElementById(`dene${dene.id}`) 
+                        dene.y += dene.speed
+                        dene.x += Math.sin(dene.y/50)
+                        
+                        elem.style.left = dene.x + 'px'
+                        elem.style.top = dene.y + 'px'
+                        elem.style.fontSize = dene.size + 'em'
+                        elem.style.color = '#fff'
+                        elem.style.opacity = dene.color
 
-
-function rnd(min,max) {
-    return (Math.floor(Math.random() * (max - min)) + 1) + min;
-}
+                        if (dene.y > qar.offsetHeight) {
+                            elem.remove()
+                            delete snowArr[dene.id]
+                        }
+                    }
+                }
+            }
+            
+            function rnd(min, max) {
+                return Math.floor(Math.random() * (max - min + 1) ) + min;
+            }
+        </script>
+    </body>
+</html>
