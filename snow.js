@@ -1,4 +1,4 @@
-     const qar = document.getElementById('qar')
+   const qar = document.getElementById('qar')
             let i = 0
             const snowArr = []
             const flakes = ['❄', '❅', '⁕', '❆', '*']
